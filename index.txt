@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kirti Rathore — Couture House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8955A;
+    --gold-light: #D4AF7A;
+    --gold-pale: #F0E6D0;
+    --black: #0A0A08;
+    --charcoal: #1A1A16;
+    --off-white: #F7F4EE;
+    --cream: #EDE8DF;
+    --text-muted: #8A8070;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--off-white);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.15s ease;
+    opacity: 0.6;
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 28px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,8,0.95) 0%, transparent 100%);
+    transition: background 0.4s ease, padding 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(10,10,8,0.97);
+    padding: 18px 60px;
+    border-bottom: 1px solid rgba(184,149,90,0.15);
+  }
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: none;
+  }
+  .nav-logo span { color: var(--off-white); }
+  .nav-links {
+    display: flex; gap: 40px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+    cursor: none;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 100%;
+    height: 1px; background: var(--gold);
+    transition: right 0.3s ease;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+  .nav-links a:hover::after { right: 0; }
+  .nav-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 12px 28px;
+    text-decoration: none;
+    cursor: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; padding: 4px; }
+  .hamburger span { width: 28px; height: 1px; background: var(--gold); display: block; transition: all 0.3s; }
+
+  /* ─── PAGE SYSTEM ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ─── WELCOME / SPLASH ─── */
+  #page-welcome {
+    position: relative;
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .welcome-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0A0A08 0%, #1A1510 40%, #0D0B08 100%);
+  }
+  .welcome-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(184,149,90,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(184,149,90,0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: gridShift 20s linear infinite;
+  }
+  @keyframes gridShift {
+    0% { background-position: 0 0; }
+    100% { background-position: 80px 80px; }
+  }
+  .welcome-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    animation: orbFloat 8s ease-in-out infinite;
+  }
+  .orb1 { width: 600px; height: 600px; background: rgba(184,149,90,0.08); top: -100px; right: -100px; animation-delay: 0s; }
+  .orb2 { width: 400px; height: 400px; background: rgba(184,149,90,0.05); bottom: -50px; left: -50px; animation-delay: 3s; }
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+  }
+  .welcome-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    animation: welcomeFade 1.8s ease forwards;
+  }
+  @keyframes welcomeFade {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .welcome-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: welcomeFade 1s ease 0.3s forwards;
+  }
+  .welcome-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    color: var(--off-white);
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: welcomeFade 1s ease 0.6s forwards;
+  }
+  .welcome-title em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+  .welcome-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 60px;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: welcomeFade 1s ease 0.9s forwards;
+  }
+  .welcome-divider {
+    width: 120px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto 60px;
+    opacity: 0;
+    animation: welcomeFade 1s ease 1.1s forwards;
+  }
+  .welcome-enter {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    padding: 18px 50px;
+    border: 1px solid rgba(184,149,90,0.4);
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: welcomeFade 1s ease 1.4s forwards;
+    transition: color 0.4s, border-color 0.4s;
+  }
+  .welcome-enter::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  .welcome-enter:hover { color: var(--black); border-color: var(--gold); }
+  .welcome-enter:hover::before { transform: translateX(0); }
+  .welcome-tagline {
+    position: absolute;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    opacity: 0;
+    animation: welcomeFade 1s ease 1.8s forwards;
+  }
+  .scroll-indicator {
+    position: absolute; bottom: 40px; right: 60px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0;
+    animation: welcomeFade 1s ease 2s forwards;
+  }
+  .scroll-indicator span {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted);
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.6) translateY(20px); }
+  }
+
+  /* ─── HOME PAGE ─── */
+  #page-home { background: var(--black); }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    height: 100vh;
+    display: flex; align-items: flex-end;
+    padding: 80px 60px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(10,10,8,0.95) 35%, rgba(10,10,8,0.4) 70%, rgba(10,10,8,0.1) 100%),
+      url('https://www.kirtirathore.com/kirtipanel/BannerImages/banner013.jpg') center/cover no-repeat;
+    animation: heroZoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-season {
+    font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px; display: flex; align-items: center; gap: 16px;
+  }
+  .hero-season::before { content: ''; width: 40px; height: 1px; background: var(--gold); }
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 1.0;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  .hero-h1 strong {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(247,244,238,0.65);
+    margin-bottom: 48px;
+    max-width: 500px;
+    letter-spacing: 0.02em;
+  }
+  .hero-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 16px 40px;
+    text-decoration: none;
+    cursor: none;
+    transition: background 0.3s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-ghost {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--off-white);
+    text-decoration: none;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(247,244,238,0.3);
+    cursor: none;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .btn-ghost:hover { color: var(--gold-light); border-color: var(--gold); }
+  .hero-stats {
+    position: absolute; bottom: 80px; right: 60px; z-index: 2;
+    display: flex; gap: 50px;
+  }
+  .stat { text-align: right; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300;
+    color: var(--gold); line-height: 1;
+    display: block;
+  }
+  .stat-label {
+    font-size: 10px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+
+  /* Section commons */
+  .section { padding: 120px 60px; }
+  .section-tag {
+    font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-tag::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+  h2.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+  h2.section-title em { font-style: italic; color: var(--gold-light); }
+
+  /* About strip */
+  .about-strip {
+    background: var(--charcoal);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  }
+  .about-strip-image {
+    position: relative; overflow: hidden;
+    min-height: 600px;
+  }
+  .about-strip-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: sepia(20%) brightness(0.8);
+    transition: transform 0.8s ease;
+  }
+  .about-strip:hover .about-strip-image img { transform: scale(1.05); }
+  .about-strip-content {
+    padding: 100px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .about-strip-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: rgba(247,244,238,0.75);
+    margin-bottom: 40px;
+  }
+
+  /* Collection grid */
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .collection-item {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: none;
+  }
+  .collection-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(0.75) sepia(15%);
+  }
+  .collection-item:hover img { transform: scale(1.08); }
+  .collection-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,8,0.9) 0%, transparent 60%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 32px;
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .collection-item:hover .collection-overlay { opacity: 1; }
+  .collection-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-style: italic; font-weight: 300;
+    color: var(--off-white);
+    margin-bottom: 8px;
+  }
+  .collection-cta {
+    font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none; cursor: none;
+  }
+  .collection-always-label {
+    position: absolute; bottom: 24px; left: 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-style: italic; font-weight: 300;
+    color: var(--off-white);
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+    transition: opacity 0.4s;
+  }
+  .collection-item:hover .collection-always-label { opacity: 0; }
+
+  /* Marquee */
+  .marquee-section {
+    background: var(--gold);
+    padding: 20px 0;
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex;
+    animation: marquee 25s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    padding: 0 40px;
+    display: flex; align-items: center; gap: 40px;
+  }
+  .marquee-item::after { content: '◆'; font-size: 8px; }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Celebrities */
+  .celebrities { background: var(--charcoal); }
+  .celeb-list {
+    columns: 3;
+    column-gap: 60px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 2;
+    color: rgba(247,244,238,0.6);
+    margin-top: 60px;
+  }
+  .celeb-list span {
+    display: block;
+    transition: color 0.3s;
+    cursor: default;
+  }
+  .celeb-list span:hover { color: var(--gold-light); }
+
+  /* Events */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+  .event-card {
+    position: relative; overflow: hidden;
+    aspect-ratio: 4/5;
+    cursor: none;
+  }
+  .event-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s ease;
+    filter: brightness(0.7) sepia(20%);
+  }
+  .event-card:hover img { transform: scale(1.06); }
+  .event-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,8,0.95) 0%, rgba(10,10,8,0.1) 60%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 36px;
+  }
+  .event-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 300; font-style: italic;
+    color: var(--off-white);
+    margin-bottom: 8px;
+  }
+  .event-card-tag {
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* School */
+  .school-section {
+    background: linear-gradient(135deg, #0D0B09 0%, #1A1510 100%);
+    position: relative; overflow: hidden;
+  }
+  .school-section::before {
+    content: 'SCHOOL';
+    position: absolute; right: -60px; top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Cinzel', serif;
+    font-size: 160px; font-weight: 600;
+    color: rgba(184,149,90,0.04);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .school-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+    align-items: center;
+    position: relative; z-index: 2;
+  }
+  .school-courses { margin-top: 40px; }
+  .course-item {
+    border-bottom: 1px solid rgba(184,149,90,0.15);
+    padding: 28px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: none; transition: border-color 0.3s;
+  }
+  .course-item:hover { border-color: var(--gold); }
+  .course-duration {
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+  }
+  .course-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300;
+    color: var(--off-white);
+    margin-top: 6px;
+  }
+  .course-arrow { color: var(--gold); font-size: 20px; }
+  .school-image-container {
+    position: relative;
+  }
+  .school-image-container img {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    filter: sepia(20%) brightness(0.8);
+  }
+  .school-image-badge {
+    position: absolute; bottom: -24px; left: -24px;
+    background: var(--gold);
+    padding: 28px 32px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    line-height: 1.8;
+  }
+
+  /* Contact */
+  .contact-section {
+    background: var(--charcoal);
+  }
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+  }
+  .contact-info { padding-top: 20px; }
+  .contact-detail {
+    margin-bottom: 40px;
+  }
+  .contact-detail-label {
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .contact-detail-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300;
+    color: var(--off-white);
+  }
+  .contact-social {
+    display: flex; gap: 20px; margin-top: 50px;
+  }
+  .social-link {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(184,149,90,0.3);
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; cursor: none;
+    transition: background 0.3s, border-color 0.3s;
+    font-size: 14px; color: var(--gold);
+  }
+  .social-link:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .contact-form { }
+  .form-group { margin-bottom: 24px; position: relative; }
+  .form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(184,149,90,0.25);
+    padding: 16px 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--off-white);
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(184,149,90,0.25);
+    padding: 16px 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--off-white);
+    outline: none;
+    appearance: none;
+    cursor: none;
+  }
+  .form-select option { background: var(--charcoal); }
+  .form-label {
+    position: absolute; top: 16px; left: 0;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--text-muted);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(184,149,90,0.1);
+    padding: 80px 60px 40px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px; margin-bottom: 80px;
+  }
+  .footer-brand-name {
+    font-family: 'Cinzel', serif;
+    font-size: 22px; letter-spacing: 0.15em;
+    color: var(--gold); margin-bottom: 20px;
+  }
+  .footer-brand-text {
+    font-size: 14px; line-height: 1.9;
+    color: var(--text-muted); max-width: 300px;
+  }
+  .footer-col-title {
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 24px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 12px; }
+  .footer-links a {
+    font-size: 14px; color: var(--text-muted);
+    text-decoration: none; cursor: none;
+    transition: color 0.3s;
+    letter-spacing: 0.03em;
+  }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(184,149,90,0.1);
+    padding-top: 40px;
+    font-size: 12px; color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── ABOUT PAGE ─── */
+  #page-about { background: var(--black); }
+  .page-hero {
+    height: 55vh;
+    display: flex; align-items: flex-end;
+    padding: 80px 60px;
+    position: relative; overflow: hidden;
+    background: linear-gradient(to right, rgba(10,10,8,0.97) 40%, rgba(10,10,8,0.5) 100%), var(--charcoal);
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://www.kirtirathore.com/kirtipanel/BannerImages/banner012.jpg') center/cover;
+    opacity: 0.3;
+  }
+  .page-hero-content { position: relative; z-index: 2; }
+  .page-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.0;
+  }
+  .founder-section {
+    padding: 120px 60px;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 100px;
+    align-items: start;
+  }
+  .founder-image-wrap { position: sticky; top: 120px; }
+  .founder-image-wrap img {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    filter: sepia(15%) brightness(0.85);
+  }
+  .founder-image-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; font-style: italic;
+    color: var(--text-muted);
+    margin-top: 16px; text-align: center;
+  }
+  .founder-content { padding-top: 20px; }
+  .founder-content p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; font-weight: 300; line-height: 1.9;
+    color: rgba(247,244,238,0.75);
+    margin-bottom: 28px;
+  }
+  .founder-quote {
+    border-left: 2px solid var(--gold);
+    padding-left: 32px;
+    margin: 48px 0;
+  }
+  .founder-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px !important;
+    font-style: italic !important;
+    color: var(--gold-light) !important;
+    line-height: 1.6 !important;
+  }
+  .mission-vision {
+    background: var(--charcoal);
+    padding: 120px 60px;
+  }
+  .mv-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    margin-top: 60px;
+  }
+  .mv-item {
+    padding: 60px;
+    background: rgba(184,149,90,0.03);
+    border: 1px solid rgba(184,149,90,0.1);
+  }
+  .mv-item h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 13px; letter-spacing: 0.3em;
+    color: var(--gold); margin-bottom: 24px;
+  }
+  .mv-item p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; font-weight: 300; line-height: 1.85;
+    color: rgba(247,244,238,0.7);
+  }
+
+  /* ─── COLLECTION PAGE ─── */
+  #page-collection { background: var(--black); }
+  .collection-hero {
+    height: 55vh; display: flex; align-items: flex-end;
+    padding: 80px 60px; position: relative; overflow: hidden;
+  }
+  .collection-hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://www.kirtirathore.com/kirtipanel/catImage/corporatewear05.jpg') center/cover;
+    filter: brightness(0.4) sepia(20%);
+  }
+  .collection-page-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    padding: 2px;
+  }
+  .collection-page-item {
+    position: relative; overflow: hidden; aspect-ratio: 3/4;
+    cursor: none;
+  }
+  .collection-page-item.large {
+    grid-column: span 2; aspect-ratio: auto;
+    min-height: 600px;
+  }
+  .collection-page-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.8s ease;
+    filter: brightness(0.75) sepia(10%);
+  }
+  .collection-page-item:hover img { transform: scale(1.06); }
+  .collection-page-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,8,0.9) 0%, transparent 50%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px;
+  }
+  .col-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px; font-style: italic; font-weight: 300;
+    color: var(--off-white); margin-bottom: 6px;
+  }
+  .col-item-desc {
+    font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold);
+  }
+
+  /* ─── SCHOOL PAGE ─── */
+  #page-school { background: var(--black); }
+  .school-page-intro {
+    padding: 120px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
+    align-items: center;
+  }
+  .school-page-text p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; font-weight: 300; line-height: 1.9;
+    color: rgba(247,244,238,0.75);
+    margin-bottom: 24px;
+  }
+  .school-courses-section {
+    background: var(--charcoal);
+    padding: 120px 60px;
+  }
+  .courses-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 60px;
+  }
+  .course-card {
+    background: rgba(184,149,90,0.03);
+    border: 1px solid rgba(184,149,90,0.1);
+    padding: 50px 40px;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: none;
+  }
+  .course-card:hover {
+    border-color: var(--gold);
+    background: rgba(184,149,90,0.06);
+  }
+  .course-card-duration {
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+  }
+  .course-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300;
+    color: var(--off-white); margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .course-card-desc {
+    font-size: 14px; line-height: 1.8;
+    color: var(--text-muted); margin-bottom: 32px;
+  }
+  .enroll-section { padding: 120px 60px; }
+  .enroll-inner {
+    background: linear-gradient(135deg, rgba(184,149,90,0.1) 0%, rgba(184,149,90,0.03) 100%);
+    border: 1px solid rgba(184,149,90,0.2);
+    padding: 80px;
+  }
+  .enroll-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; margin-top: 48px; }
+
+  /* ─── GALLERY PAGE ─── */
+  #page-gallery { background: var(--black); }
+  .gallery-masonry {
+    padding: 0 2px 2px;
+    columns: 3;
+    column-gap: 2px;
+  }
+  .gallery-masonry-item {
+    break-inside: avoid;
+    margin-bottom: 2px;
+    overflow: hidden;
+    cursor: none;
+    position: relative;
+  }
+  .gallery-masonry-item img {
+    width: 100%; display: block;
+    transition: transform 0.7s ease;
+    filter: brightness(0.8) sepia(10%);
+  }
+  .gallery-masonry-item:hover img { transform: scale(1.04); }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: rgba(184,149,90,0.15);
+    opacity: 0; transition: opacity 0.4s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gallery-masonry-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-plus {
+    font-size: 40px; color: var(--off-white);
+    font-weight: 100;
+  }
+
+  /* ─── CONTACT PAGE ─── */
+  #page-contact { background: var(--black); }
+  .contact-page-inner {
+    padding: 120px 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
+  }
+  .contact-map-placeholder {
+    background: var(--charcoal);
+    border: 1px solid rgba(184,149,90,0.1);
+    min-height: 400px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-style: italic;
+    color: var(--text-muted);
+  }
+  .contact-page-details { }
+  .contact-page-item {
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(184,149,90,0.1);
+  }
+  .contact-page-item:first-child { border-top: 1px solid rgba(184,149,90,0.1); }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width: 900px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .section { padding: 80px 24px; }
+    .hero { padding: 60px 24px; }
+    .hero-stats { right: 24px; bottom: 60px; gap: 24px; }
+    .stat-num { font-size: 28px; }
+    .about-strip, .school-inner, .contact-inner, .contact-inner, .mv-grid,
+    .founder-section, .school-page-intro { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .collection-grid, .events-grid, .courses-grid, .collection-page-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-masonry { columns: 2; }
+    .celeb-list { columns: 2; }
+    .collection-page-item.large { grid-column: span 1; }
+    .school-image-badge { bottom: -16px; left: -16px; }
+    .enroll-inner { padding: 40px 24px; }
+    .enroll-form-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .hero-stats { display: none; }
+    .contact-page-inner { grid-template-columns: 1fr; gap: 50px; }
+    .about-strip-content { padding: 60px 24px; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Mobile nav */
+  .mobile-menu {
+    position: fixed; inset: 0; background: rgba(10,10,8,0.98); z-index: 90;
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    gap: 32px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 300; font-style: italic;
+    color: var(--off-white); text-decoration: none;
+    cursor: none; transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .close-btn {
+    position: absolute; top: 24px; right: 24px;
+    font-size: 28px; color: var(--gold); cursor: none;
+    background: none; border: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navigation -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo" onclick="showPage('welcome')">Kirti <span>Rathore</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('about')">About</a></li>
+    <li><a href="#" onclick="showPage('collection')">Collection</a></li>
+    <li><a href="#" onclick="showPage('gallery')">Gallery</a></li>
+    <li><a href="#" onclick="showPage('school')">School of Design</a></li>
+    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta" onclick="showPage('contact')">Book Appointment</a>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" id="closeMenu">✕</button>
+  <a href="#" onclick="showPage('home');closeMobile()">Home</a>
+  <a href="#" onclick="showPage('about');closeMobile()">About Founder</a>
+  <a href="#" onclick="showPage('collection');closeMobile()">Our Collection</a>
+  <a href="#" onclick="showPage('gallery');closeMobile()">Gallery</a>
+  <a href="#" onclick="showPage('school');closeMobile()">School of Design</a>
+  <a href="#" onclick="showPage('contact');closeMobile()">Contact</a>
+</div>
+
+<!-- ═══════════════════════════════════ WELCOME ═══════════════════════════════════ -->
+<div id="page-welcome" class="page active">
+  <div style="position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+    <div class="welcome-bg"></div>
+    <div class="welcome-grid"></div>
+    <div class="welcome-orb orb1"></div>
+    <div class="welcome-orb orb2"></div>
+    <div class="welcome-content">
+      <div class="welcome-eyebrow">Est. Jaipur, India — Couture House</div>
+      <div class="welcome-title">Kirti<em>Rathore</em></div>
+      <div class="welcome-subtitle">"Where Craft Meets Elegance"</div>
+      <div class="welcome-divider"></div>
+      <a href="#" class="welcome-enter" onclick="showPage('home')">Enter the Atelier</a>
+    </div>
+    <div class="welcome-tagline">India's Premier Men's Designer — C-Scheme, Jaipur</div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ HOME ═══════════════════════════════════ -->
+<div id="page-home" class="page">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-season reveal">New Season — 2025</div>
+      <h1 class="hero-h1 reveal reveal-delay-1">
+        The Art of<br><strong>Dressed Perfection</strong>
+      </h1>
+      <p class="hero-desc reveal reveal-delay-2">India's only female designer specialising in men's couture. Bespoke, sustainable, and worn by the world's most celebrated names.</p>
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="#" class="btn-primary" onclick="showPage('collection')">Explore Collection</a>
+        <a href="#" class="btn-ghost" onclick="showPage('about')">Our Story →</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">15+</span>
+        <span class="stat-label">Years of Craft</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">50+</span>
+        <span class="stat-label">Celebrities Dressed</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100+</span>
+        <span class="stat-label">Awards Won</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item">Corporate Wear</span>
+      <span class="marquee-item">Indo Western</span>
+      <span class="marquee-item">Sherwani</span>
+      <span class="marquee-item">Jackets</span>
+      <span class="marquee-item">Nehru Jacket</span>
+      <span class="marquee-item">Kids Wear</span>
+      <span class="marquee-item">Bespoke Tailoring</span>
+      <span class="marquee-item">Eco-Friendly Fabrics</span>
+      <span class="marquee-item">Corporate Wear</span>
+      <span class="marquee-item">Indo Western</span>
+      <span class="marquee-item">Sherwani</span>
+      <span class="marquee-item">Jackets</span>
+      <span class="marquee-item">Nehru Jacket</span>
+      <span class="marquee-item">Kids Wear</span>
+      <span class="marquee-item">Bespoke Tailoring</span>
+      <span class="marquee-item">Eco-Friendly Fabrics</span>
+    </div>
+  </div>
+
+  <!-- About Strip -->
+  <div class="about-strip">
+    <div class="about-strip-image reveal">
+      <img src="https://www.kirtirathore.com/kirtipanel/images/kirtirathore_about_us.jpg" alt="Kirti Rathore">
+    </div>
+    <div class="about-strip-content">
+      <div class="section-tag reveal">About the Designer</div>
+      <h2 class="section-title reveal reveal-delay-1">Pioneering<br>Men's <em>Couture</em></h2>
+      <p class="about-strip-text reveal reveal-delay-2">
+        Kirti Rathore is India's sole female designer for men's wear — a trailblazer whose studio in C-Scheme, Jaipur, has become a destination for those who understand that true luxury is built stitch by stitch. She works exclusively with eco-friendly organic fabrics, creating garments as timeless as they are seasonless.
+      </p>
+      <a href="#" class="btn-ghost reveal reveal-delay-3" onclick="showPage('about')">Read Her Story →</a>
+    </div>
+  </div>
+
+  <!-- Collection Grid -->
+  <section class="section" style="padding-bottom:0">
+    <div class="section-tag reveal">Our Collections</div>
+    <h2 class="section-title reveal reveal-delay-1">Crafted for the<br><em>Distinguished Man</em></h2>
+  </section>
+  <div class="collection-grid" style="margin-top:40px">
+    <div class="collection-item reveal">
+      <img src="https://www.kirtirathore.com/kirtipanel/catImage/corporatewear05.jpg" alt="Corporate Wear">
+      <div class="collection-always-label">Corporate Wear</div>
+      <div class="collection-overlay">
+        <div class="collection-label">Corporate Wear</div>
+        <a href="#" class="collection-cta" onclick="showPage('collection')">Explore →</a>
+      </div>
+    </div>
+    <div class="collection-item reveal reveal-delay-1">
+      <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/banner013.jpg" alt="Indo Western">
+      <div class="collection-always-label">Indo Western</div>
+      <div class="collection-overlay">
+        <div class="collection-label">Indo Western</div>
+        <a href="#" class="collection-cta" onclick="showPage('collection')">Explore →</a>
+      </div>
+    </div>
+    <div class="collection-item reveal reveal-delay-2">
+      <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/banner012.jpg" alt="Sherwani">
+      <div class="collection-always-label">Sherwani</div>
+      <div class="collection-overlay">
+        <div class="collection-label">Sherwani</div>
+        <a href="#" class="collection-cta" onclick="showPage('collection')">Explore →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Celebrities Section -->
+  <section class="section celebrities">
+    <div class="section-tag reveal">Dressed By Kirti Rathore</div>
+    <h2 class="section-title reveal reveal-delay-1">Icons Who<br><em>Wear the Brand</em></h2>
+    <div class="celeb-list reveal reveal-delay-2">
+      <span>Vivek Oberoi</span>
+      <span>Amitabh Bachchan</span>
+      <span>Prabhas</span>
+      <span>Shahrukh Khan</span>
+      <span>Salman Khan</span>
+      <span>Arbaaz Khan</span>
+      <span>Tiger Shroff</span>
+      <span>Kartik Aaryan</span>
+      <span>Arjun Kapoor</span>
+      <span>Imran Khan</span>
+      <span>Boney Kapoor</span>
+      <span>Ajay Devgan</span>
+      <span>Nawazuddin Siddiqui</span>
+      <span>Sushant Singh</span>
+      <span>Praneet Bhatt</span>
+      <span>Pankaj Dheer</span>
+      <span>Anushka Sharma</span>
+      <span>Mandira Bedi</span>
+      <span>Ajaz Khan</span>
+      <span>Shakti Kapoor</span>
+      <span>Hrishita Bhatt</span>
+      <span>Sonali Raut</span>
+      <span>Sana Khan</span>
+      <span>Poonam Dhillon</span>
+    </div>
+  </section>
+
+  <!-- Event Gallery -->
+  <section class="section" style="padding-bottom:0">
+    <div class="section-tag reveal">Runway & Events</div>
+    <h2 class="section-title reveal reveal-delay-1">National &amp;<br><em>International Stages</em></h2>
+  </section>
+  <div class="events-grid" style="margin-top:40px">
+    <div class="event-card reveal">
+      <img src="https://www.kirtirathore.com/kirtipanel/galleryCat/Dehradun-Fashion-Week.jpg" alt="Dehradun Fashion Week">
+      <div class="event-card-overlay">
+        <div class="event-card-title">Dehradun Fashion Week</div>
+        <div class="event-card-tag">Fashion Week</div>
+      </div>
+    </div>
+    <div class="event-card reveal reveal-delay-1">
+      <img src="https://www.kirtirathore.com/kirtipanel/galleryCat/kids01.jpg" alt="India Kids Fashion Week">
+      <div class="event-card-overlay">
+        <div class="event-card-title">India Kids Fashion Week</div>
+        <div class="event-card-tag">Kids Edition</div>
+      </div>
+    </div>
+    <div class="event-card reveal reveal-delay-2">
+      <img src="https://www.kirtirathore.com/kirtipanel/galleryCat/38.jpg" alt="Fashion Shows">
+      <div class="event-card-overlay">
+        <div class="event-card-title">Fashion Shows</div>
+        <div class="event-card-tag">National Showcase</div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:60px 0 0;">
+    <a href="#" class="btn-primary" onclick="showPage('gallery')">View Full Gallery</a>
+  </div>
+
+  <!-- School Preview -->
+  <section class="section school-section">
+    <div class="school-inner">
+      <div>
+        <div class="section-tag reveal">Education</div>
+        <h2 class="section-title reveal reveal-delay-1">Kirti Rathore<br><em>School of Design</em></h2>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;line-height:1.9;color:rgba(247,244,238,0.7);margin-bottom:40px" class="reveal reveal-delay-2">
+          India's first full-fledged classical and digital industrial training unit for fashion and merchandising — preparing the creative minds of tomorrow.
+        </p>
+        <div class="school-courses reveal reveal-delay-3">
+          <div class="course-item">
+            <div>
+              <div class="course-duration">3 Months</div>
+              <div class="course-name">Beginners Course</div>
+            </div>
+            <div class="course-arrow">→</div>
+          </div>
+          <div class="course-item">
+            <div>
+              <div class="course-duration">6 Months</div>
+              <div class="course-name">Intermediate Course</div>
+            </div>
+            <div class="course-arrow">→</div>
+          </div>
+          <div class="course-item">
+            <div>
+              <div class="course-duration">12 Months</div>
+              <div class="course-name">Advance Diploma Course</div>
+            </div>
+            <div class="course-arrow">→</div>
+          </div>
+        </div>
+        <div style="margin-top:40px" class="reveal reveal-delay-4">
+          <a href="#" class="btn-primary" onclick="showPage('school')">Explore the School</a>
+        </div>
+      </div>
+      <div class="school-image-container reveal">
+        <img src="https://www.kirtirathore.com/images/kr.jpg" alt="School of Design">
+        <div class="school-image-badge">
+          Jaipur<br>Center
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact strip -->
+  <section class="section contact-section">
+    <div class="contact-inner">
+      <div>
+        <div class="section-tag reveal">Get In Touch</div>
+        <h2 class="section-title reveal reveal-delay-1">Visit Our<br><em>Atelier</em></h2>
+        <div class="contact-info reveal reveal-delay-2">
+          <div class="contact-detail">
+            <div class="contact-detail-label">Address</div>
+            <div class="contact-detail-value">59, Sardar Patel Marg, C-Scheme<br>Jaipur, Rajasthan</div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-label">By Appointment</div>
+            <div class="contact-detail-value">+91-9462081933</div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">info@kirtirathore.com</div>
+          </div>
+          <div class="contact-social">
+            <a href="https://www.facebook.com/kirtirathoredesigns.in" class="social-link" target="_blank">f</a>
+            <a href="https://www.instagram.com/officialkirtirathore" class="social-link" target="_blank">ig</a>
+            <a href="https://www.youtube.com/@kirtirathore10" class="social-link" target="_blank">yt</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-2">
+        <div class="form-group">
+          <input type="text" class="form-input" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-input" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+          <input type="tel" class="form-input" placeholder="Phone Number">
+        </div>
+        <div class="form-group">
+          <select class="form-select">
+            <option value="">Select Service</option>
+            <option>Bespoke Tailoring</option>
+            <option>Wedding Sherwani</option>
+            <option>Corporate Wardrobe</option>
+            <option>School Inquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea class="form-input" placeholder="Your Message" rows="4" style="resize:none"></textarea>
+        </div>
+        <button class="btn-primary" style="border:none;width:100%;font-size:11px;letter-spacing:0.35em;cursor:none">Send Message</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Kirti Rathore</div>
+        <p class="footer-brand-text">India's sole female designer for men's couture. Crafting exceptional garments for the distinguished man since 2010. Studio located in C-Scheme, Jaipur.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Collections</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('collection')">Corporate Wear</a></li>
+          <li><a href="#" onclick="showPage('collection')">Indo Western</a></li>
+          <li><a href="#" onclick="showPage('collection')">Sherwani</a></li>
+          <li><a href="#" onclick="showPage('collection')">Jackets</a></li>
+          <li><a href="#" onclick="showPage('collection')">Nehru Jacket</a></li>
+          <li><a href="#" onclick="showPage('collection')">Kids Wear</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Atelier</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('about')">About Founder</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Event Gallery</a></li>
+          <li><a href="#" onclick="showPage('gallery')">Award Gallery</a></li>
+          <li><a href="#" onclick="showPage('school')">School of Design</a></li>
+          <li><a href="#" onclick="showPage('contact')">Guest Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#">+91-9462081933</a></li>
+          <li><a href="#">info@kirtirathore.com</a></li>
+          <li><a href="#">59, Sardar Patel Marg</a></li>
+          <li><a href="#">C-Scheme, Jaipur</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Kirti Rathore. All Rights Reserved.</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Crafted in Jaipur, Worn by the World</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════ ABOUT ═══════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <div class="section-tag">The Founder</div>
+      <h1 class="page-hero h1">Kirti<br><em style="font-style:italic;color:var(--gold-light)">Rathore</em></h1>
+    </div>
+  </div>
+
+  <div class="founder-section">
+    <div class="founder-image-wrap reveal">
+      <img src="https://www.kirtirathore.com/kirtipanel/images/kirtirathore_about_us.jpg" alt="Kirti Rathore">
+      <div class="founder-image-caption">Kirti Rathore — Couturier, Jaipur</div>
+    </div>
+    <div class="founder-content">
+      <div class="section-tag reveal">About the Founder</div>
+      <h2 class="section-title reveal reveal-delay-1">India's Only Female<br><em>Men's Couturier</em></h2>
+      <p class="reveal reveal-delay-2">Hardworking and passionate, Kirti Rathore has built an unparalleled legacy in customised, tailor-made clothes for men. Her label — known simply as <strong style="color:var(--gold-light);font-weight:400">KIRTI RATHORE</strong> — is headquartered in the posh locality of C-Scheme, Jaipur, where a high-tech manufacturing unit with the latest machinery and an expert workforce bring her designs to life.</p>
+      <p class="reveal reveal-delay-2">Kirti Rathore has built a flourishing career through innovative technique and excellent design skills forged through exclusive workmanship. She is the <strong style="color:var(--gold-light);font-weight:400">only female designer for men's wear in the Fashion Industry</strong> — having showcased her creations on national and international platforms with many prestigious awards and accolades to her name.</p>
+      <div class="founder-quote reveal">
+        <p>"Fashion is a form of ugliness so intolerable that we have to alter it every six months."</p>
+      </div>
+      <p class="reveal">She works primarily with eco-friendly organic fabrics that can be worn in every season. Beyond fashion, Kirti Rathore is a dedicated social activist who believes in giving back to the society. Ever since she launched her creative collection, commerce has been growing progressively — with a signature of architectural shapes, idiosyncratic prints on luxurious fabrics (linen, silk with vibrant colours) creating garments that are rich, graceful, and sustainable.</p>
+      <div style="margin-top:48px" class="reveal">
+        <div class="section-tag">Celebrity Clientele</div>
+        <p style="margin-top:16px">For Vivek Oberoi, the studio has been managing his complete wardrobe for over five years. The house has also designed for Amitabh Bachchan, Prabhas, Shahrukh Khan, Salman Khan, Arbaaz Khan, Tiger Shroff, Kartik Aaryan, Arjun Kapoor, Boney Kapoor, Ajay Devgan, Nawazuddin Siddiqui, and many more of Bollywood's finest.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mission-vision">
+    <div class="section-tag reveal">Mission &amp; Vision</div>
+    <h2 class="section-title reveal reveal-delay-1">Building a Legacy<br><em>Beyond Borders</em></h2>
+    <div class="mv-grid reveal reveal-delay-2">
+      <div class="mv-item">
+        <h3>Mission</h3>
+        <p>KIRTI RATHORE School of Designing prepares students for careers in fashion design. Forward-thinking faculty, administration, and staff are committed to facilitating an understanding of human-centred design with grounding in liberal arts traditions, values, and critical inquiry.</p>
+      </div>
+      <div class="mv-item">
+        <h3>Vision</h3>
+        <p>To expand our reach into the Middle East and Europe, and to craft the finest fashion designers and creative minds from India — who can unite the world through the universal language of colour and couture.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer repeated -->
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(184,149,90,0.1);padding-top:40px">
+      <span>© 2025 Kirti Rathore. All Rights Reserved.</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Crafted in Jaipur, Worn by the World</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════ COLLECTION ═══════════════════════════════════ -->
+<div id="page-collection" class="page">
+  <div class="collection-hero">
+    <div class="collection-hero-bg"></div>
+    <div style="position:relative;z-index:2">
+      <div class="section-tag">Our Collection</div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,80px);font-weight:300;line-height:1">The Complete<br><em style="font-style:italic;color:var(--gold-light)">Wardrobe</em></h1>
+    </div>
+  </div>
+
+  <div class="collection-page-grid" style="margin-top:2px">
+    <div class="collection-page-item large">
+      <img src="https://www.kirtirathore.com/kirtipanel/catImage/corporatewear05.jpg" alt="Corporate Wear">
+      <div class="collection-page-overlay">
+        <div class="col-item-name">Corporate Wear</div>
+        <div class="col-item-desc">Power Dressing Redefined</div>
+      </div>
+    </div>
+    <div class="collection-page-item">
+      <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/banner013.jpg" alt="Indo Western">
+      <div class="collection-page-overlay">
+        <div class="col-item-name">Indo Western</div>
+        <div class="col-item-desc">East Meets Couture</div>
+      </div>
+    </div>
+    <div class="collection-page-item">
+      <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/banner012.jpg" alt="Sherwani">
+      <div class="collection-page-overlay">
+        <div class="col-item-name">Sherwani</div>
+        <div class="col-item-desc">The Royal Heritage</div>
+      </div>
+    </div>
+    <div class="collection-page-item">
+      <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/banner01.jpg" alt="Jackets">
+      <div class="collection-page-overlay">
+        <div class="col-item-name">Jackets</div>
+        <div class="col-item-desc">Structured Elegance</div>
+      </div>
+    </div>
+    <div class="collection-page-item">
+      <img src="https://www.kirtirathore.com/kirtipanel/galleryCat/kids01.jpg" alt="Kids Wear">
+      <div class="collection-page-overlay">
+        <div class="col-item-name">Kids Wear</div>
+        <div class="col-item-desc">Little Royals</div>
+      </div>
+    </div>
+    <div class="collection-page-item">
+      <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/5.jpg" alt="Nehru Jacket">
+      <div class="collection-page-overlay">
+        <div class="col-item-name">Nehru Jacket</div>
+        <div class="col-item-desc">Timeless Indian Silhouette</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" style="text-align:center;background:var(--charcoal)">
+    <div class="section-tag" style="justify-content:center">Bespoke Appointments</div>
+    <h2 class="section-title reveal" style="margin-bottom:24px">Every Garment<br><em>Made for You</em></h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:rgba(247,244,238,0.65);max-width:600px;margin:0 auto 48px;line-height:1.8" class="reveal">All creations are bespoke — crafted to your exact measurements and aesthetic vision using premium eco-friendly organic fabrics.</p>
+    <a href="#" class="btn-primary reveal" onclick="showPage('contact')">Book a Consultation</a>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(184,149,90,0.1);padding-top:40px">
+      <span>© 2025 Kirti Rathore. All Rights Reserved.</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Crafted in Jaipur, Worn by the World</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════ GALLERY ═══════════════════════════════════ -->
+<div id="page-gallery" class="page">
+  <div style="padding:160px 60px 80px;background:var(--charcoal)">
+    <div class="section-tag">Gallery</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,80px);font-weight:300;line-height:1">Events &amp;<br><em style="font-style:italic;color:var(--gold-light)">Awards</em></h1>
+  </div>
+
+  <!-- Gallery tabs -->
+  <div style="display:flex;gap:0;background:var(--black);padding:0 60px;border-bottom:1px solid rgba(184,149,90,0.1)">
+    <button onclick="setGalleryTab('events')" id="tab-events"
+      style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;background:none;border:none;color:var(--gold);padding:20px 0;margin-right:40px;border-bottom:2px solid var(--gold);cursor:none">
+      Event Gallery
+    </button>
+    <button onclick="setGalleryTab('awards')" id="tab-awards"
+      style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;background:none;border:none;color:var(--text-muted);padding:20px 0;margin-right:40px;border-bottom:2px solid transparent;cursor:none">
+      Award Gallery
+    </button>
+  </div>
+
+  <div id="gallery-events" style="padding-top:4px">
+    <div class="gallery-masonry">
+      <div class="gallery-masonry-item">
+        <img src="https://www.kirtirathore.com/kirtipanel/galleryCat/Dehradun-Fashion-Week.jpg" alt="Dehradun Fashion Week">
+        <div class="gallery-overlay"><div class="gallery-plus">+</div></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="https://www.kirtirathore.com/kirtipanel/galleryCat/kids01.jpg" alt="Kids Fashion Week">
+        <div class="gallery-overlay"><div class="gallery-plus">+</div></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="https://www.kirtirathore.com/kirtipanel/galleryCat/38.jpg" alt="Fashion Shows">
+        <div class="gallery-overlay"><div class="gallery-plus">+</div></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/banner013.jpg" alt="Show">
+        <div class="gallery-overlay"><div class="gallery-plus">+</div></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/banner012.jpg" alt="Show">
+        <div class="gallery-overlay"><div class="gallery-plus">+</div></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/4.jpg" alt="Show">
+        <div class="gallery-overlay"><div class="gallery-plus">+</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="gallery-awards" style="display:none;padding:60px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+      <div class="collection-item" style="aspect-ratio:1">
+        <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/slide01.jpg" alt="Award" style="filter:sepia(20%) brightness(0.8)">
+        <div class="collection-overlay" style="opacity:1;background:linear-gradient(to top,rgba(10,10,8,0.8) 0%,transparent 80%)">
+          <div class="collection-label" style="font-size:18px">National Fashion Award</div>
+        </div>
+      </div>
+      <div class="collection-item" style="aspect-ratio:1">
+        <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/1.jpg" alt="Award" style="filter:sepia(20%) brightness(0.8)">
+        <div class="collection-overlay" style="opacity:1;background:linear-gradient(to top,rgba(10,10,8,0.8) 0%,transparent 80%)">
+          <div class="collection-label" style="font-size:18px">International Recognition</div>
+        </div>
+      </div>
+      <div class="collection-item" style="aspect-ratio:1">
+        <img src="https://www.kirtirathore.com/kirtipanel/BannerImages/5.jpg" alt="Award" style="filter:sepia(20%) brightness(0.8)">
+        <div class="collection-overlay" style="opacity:1;background:linear-gradient(to top,rgba(10,10,8,0.8) 0%,transparent 80%)">
+          <div class="collection-label" style="font-size:18px">Designer of the Year</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:60px">
+    <div class="footer-bottom" style="border-top:1px solid rgba(184,149,90,0.1);padding-top:40px">
+      <span>© 2025 Kirti Rathore. All Rights Reserved.</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Crafted in Jaipur, Worn by the World</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════ SCHOOL ═══════════════════════════════════ -->
+<div id="page-school" class="page">
+  <div style="padding:160px 60px 80px;background:linear-gradient(135deg,#0D0B09,#1A1510);position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;font-family:'Cinzel',serif;font-size:200px;font-weight:600;color:rgba(184,149,90,0.03);display:flex;align-items:center;justify-content:flex-end;padding-right:40px;pointer-events:none">KR</div>
+    <div style="position:relative;z-index:2">
+      <div class="section-tag">Education</div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,72px);font-weight:300;line-height:1.1">Kirti Rathore<br><em style="font-style:italic;color:var(--gold-light)">School of Design</em></h1>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:rgba(247,244,238,0.6);max-width:600px;margin-top:24px;line-height:1.8">India's first full-fledged classical and digital industrial training unit for fashion and merchandising.</p>
+    </div>
+  </div>
+
+  <div class="school-page-intro">
+    <div class="school-page-text reveal">
+      <div class="section-tag">Mission &amp; Vision</div>
+      <h2 class="section-title reveal-delay-1" style="margin-bottom:32px">Shaping the Future<br><em>of Indian Fashion</em></h2>
+      <p>KIRTI RATHORE School of Designing prepares students for careers in fashion design. Forward-thinking faculty, administration, and staff are committed to facilitating an understanding of human-centred design with grounding in liberal arts traditions, values, and critical inquiry.</p>
+      <p>The Design Institute of Kirti Rathore aspires to lead the field in design education, preparing innovative, environmentally and socially responsible citizens who positively impact the world.</p>
+      <p>The institute is entirely focused on imparting necessary entrepreneurial and confidence-building skills. The designed professional programs provide a gateway to the world of fashion.</p>
+    </div>
+    <div class="reveal reveal-delay-2" style="position:relative">
+      <img src="https://www.kirtirathore.com/images/kr.jpg" alt="School of Design" style="width:100%;aspect-ratio:4/5;object-fit:cover;filter:sepia(20%) brightness(0.8)">
+      <div style="position:absolute;top:24px;right:24px;background:var(--gold);padding:20px 24px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);line-height:1.8">
+        Center:<br>Jaipur
+      </div>
+    </div>
+  </div>
+
+  <div class="school-courses-section">
+    <div class="section-tag reveal">Our Programs</div>
+    <h2 class="section-title reveal reveal-delay-1">Choose Your<br><em>Creative Journey</em></h2>
+    <div class="courses-grid reveal reveal-delay-2">
+      <div class="course-card">
+        <div class="course-card-duration">3 Months</div>
+        <div class="course-card-title">Beginners Course</div>
+        <div class="course-card-desc">An introduction to the world of fashion design — fundamentals of fabric, silhouette, sketching, and styling for those starting their creative journey.</div>
+        <a href="#" class="btn-ghost" onclick="showPage('contact')" style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,149,90,0.3);padding-bottom:6px;cursor:none">Apply Now →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-card-duration">6 Months</div>
+        <div class="course-card-title">Intermediate Course</div>
+        <div class="course-card-desc">A deeper dive into pattern making, garment construction, and design principles. Students build a professional portfolio and develop their own aesthetic language.</div>
+        <a href="#" class="btn-ghost" onclick="showPage('contact')" style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,149,90,0.3);padding-bottom:6px;cursor:none">Apply Now →</a>
+      </div>
+      <div class="course-card">
+        <div class="course-card-duration">12 Months</div>
+        <div class="course-card-title">Advance Diploma Course</div>
+        <div class="course-card-desc">The flagship program — comprehensive training in classical and digital fashion design, merchandising, entrepreneurship, and industry-ready skills.</div>
+        <a href="#" class="btn-ghost" onclick="showPage('contact')" style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(184,149,90,0.3);padding-bottom:6px;cursor:none">Apply Now →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enrolment Form -->
+  <div class="enroll-section">
+    <div class="section-tag reveal">Admissions</div>
+    <h2 class="section-title reveal reveal-delay-1">Online<br><em>Registration</em></h2>
+    <div class="enroll-inner reveal reveal-delay-2">
+      <div class="enroll-form-grid">
+        <div class="form-group">
+          <input type="text" class="form-input" placeholder="Full Name">
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-input" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+          <input type="tel" class="form-input" placeholder="Phone Number">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-input" placeholder="City">
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-input" placeholder="Date of Birth">
+        </div>
+        <div class="form-group">
+          <select class="form-select">
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-select">
+            <option value="">Select Course</option>
+            <option>3 Months Beginners Course</option>
+            <option>6 Months Intermediate Course</option>
+            <option>12 Months Advance Diploma</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-select">
+            <option value="">Select Center</option>
+            <option>Jaipur</option>
+          </select>
+        </div>
+        <div class="form-group" style="grid-column:1/-1">
+          <textarea class="form-input" placeholder="Message or Questions" rows="4" style="resize:none"></textarea>
+        </div>
+      </div>
+      <button class="btn-primary" style="border:none;font-size:11px;letter-spacing:0.35em;cursor:none;margin-top:20px">Submit Application</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(184,149,90,0.1);padding-top:40px">
+      <span>© 2025 Kirti Rathore School of Design. All Rights Reserved.</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">info.kirtirathore@gmail.com</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════ CONTACT ═══════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div style="padding:160px 60px 80px;background:var(--charcoal)">
+    <div class="section-tag">Connect</div>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,80px);font-weight:300;line-height:1">Visit Our<br><em style="font-style:italic;color:var(--gold-light)">Atelier</em></h1>
+  </div>
+
+  <div class="contact-page-inner">
+    <div class="contact-page-details reveal">
+      <div class="contact-page-item">
+        <div class="contact-detail-label">By Appointment Only</div>
+        <div class="contact-detail-value" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--off-white);margin-top:8px">+91-9462081933</div>
+      </div>
+      <div class="contact-page-item">
+        <div class="contact-detail-label">Email</div>
+        <div class="contact-detail-value" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--off-white);margin-top:8px">info@kirtirathore.com</div>
+      </div>
+      <div class="contact-page-item">
+        <div class="contact-detail-label">Studio Address</div>
+        <div class="contact-detail-value" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--off-white);margin-top:8px;line-height:1.6">59, Sardar Patel Marg<br>C-Scheme, Jaipur (Raj.)</div>
+      </div>
+      <div style="margin-top:48px">
+        <div class="contact-detail-label" style="margin-bottom:20px">Follow the House</div>
+        <div class="contact-social">
+          <a href="https://www.facebook.com/kirtirathoredesigns.in" class="social-link" target="_blank">f</a>
+          <a href="https://www.instagram.com/officialkirtirathore" class="social-link" target="_blank">ig</a>
+          <a href="https://www.youtube.com/@kirtirathore10" class="social-link" target="_blank">yt</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal reveal-delay-2">
+      <div class="section-tag" style="margin-bottom:32px">Send a Message</div>
+      <div class="form-group">
+        <input type="text" class="form-input" placeholder="Your Name">
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-input" placeholder="Email Address">
+      </div>
+      <div class="form-group">
+        <input type="tel" class="form-input" placeholder="Phone Number">
+      </div>
+      <div class="form-group">
+        <select class="form-select">
+          <option value="">Select Service</option>
+          <option>Bespoke Tailoring</option>
+          <option>Wedding Sherwani</option>
+          <option>Corporate Wardrobe</option>
+          <option>Indo Western</option>
+          <option>School of Design Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <textarea class="form-input" placeholder="Your Message" rows="5" style="resize:none"></textarea>
+      </div>
+      <button class="btn-primary" style="border:none;width:100%;font-size:11px;letter-spacing:0.35em;cursor:none">Send Message</button>
+    </div>
+  </div>
+
+  <!-- Guest Reviews -->
+  <section style="padding:80px 60px;background:var(--charcoal)">
+    <div class="section-tag reveal">Guest Reviews</div>
+    <h2 class="section-title reveal reveal-delay-1">What Our<br><em>Clients Say</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px">
+      <div style="padding:48px;background:rgba(184,149,90,0.03);border:1px solid rgba(184,149,90,0.1)" class="reveal">
+        <div style="font-size:48px;color:var(--gold);font-family:'Cormorant Garamond',serif;line-height:1;margin-bottom:24px">"</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;line-height:1.9;color:rgba(247,244,238,0.75)">Kirti Rathore's craftsmanship is extraordinary. Every stitch, every detail is perfect — a true master of her art.</p>
+        <div style="margin-top:28px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)">— A Valued Client</div>
+      </div>
+      <div style="padding:48px;background:rgba(184,149,90,0.03);border:1px solid rgba(184,149,90,0.1)" class="reveal reveal-delay-1">
+        <div style="font-size:48px;color:var(--gold);font-family:'Cormorant Garamond',serif;line-height:1;margin-bottom:24px">"</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;line-height:1.9;color:rgba(247,244,238,0.75)">The studio experience is unlike anything else. From the consultation to the final fitting — pure luxury and attention to detail.</p>
+        <div style="margin-top:28px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)">— A Valued Client</div>
+      </div>
+      <div style="padding:48px;background:rgba(184,149,90,0.03);border:1px solid rgba(184,149,90,0.1)" class="reveal reveal-delay-2">
+        <div style="font-size:48px;color:var(--gold);font-family:'Cormorant Garamond',serif;line-height:1;margin-bottom:24px">"</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;line-height:1.9;color:rgba(247,244,238,0.75)">I wore a Kirti Rathore sherwani for my wedding and received compliments all night. Truly one of India's finest designers.</p>
+        <div style="margin-top:28px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold)">— A Valued Client</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(184,149,90,0.1);padding-top:40px">
+      <span>© 2025 Kirti Rathore. All Rights Reserved.</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold)">Crafted in Jaipur, Worn by the World</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // ─── Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+
+  // ─── Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ─── Page navigation
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    observeReveals();
+    return false;
+  }
+
+  // ─── Hamburger
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.add('open');
+  });
+  document.getElementById('closeMenu').addEventListener('click', closeMobile);
+  function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // ─── Gallery tabs
+  function setGalleryTab(tab) {
+    document.getElementById('gallery-events').style.display = tab === 'events' ? 'block' : 'none';
+    document.getElementById('gallery-awards').style.display = tab === 'awards' ? 'block' : 'none';
+    document.getElementById('tab-events').style.color = tab === 'events' ? 'var(--gold)' : 'var(--text-muted)';
+    document.getElementById('tab-awards').style.color = tab === 'awards' ? 'var(--gold)' : 'var(--text-muted)';
+    document.getElementById('tab-events').style.borderBottomColor = tab === 'events' ? 'var(--gold)' : 'transparent';
+    document.getElementById('tab-awards').style.borderBottomColor = tab === 'awards' ? 'var(--gold)' : 'transparent';
+  }
+
+  // ─── Reveal on scroll
+  function observeReveals() {
+    const reveals = document.querySelectorAll('.page.active .reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  }
+
+  // Observe after load
+  window.addEventListener('load', observeReveals);
+</script>
+</body>
+</html>
